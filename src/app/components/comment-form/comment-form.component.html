@@ -1,4 +1,8 @@
-<form action="">
-    <textarea name="" id="" rows="3"  placeholder="Write something....."
+<form action="" class="flex flex-col items-end gap-4" (submit)="createComment($event)">
+    <textarea name="commentText" id="" rows="3"  [placeholder]="placeholder"
     class=" w-full px-3 py-1.5 border border-slate-900 rounded-md"></textarea>
+    <button
+    class="inline-block rounded border border-current px-8 py-1 text-sm font-medium text-indigo-600 transition hover:rotate-2 hover:scale-110 focus:outline-none focus:ring active:text-indigo-500">
+    {{buttonText}}
+</button>
 </form>

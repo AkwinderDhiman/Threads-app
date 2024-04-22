@@ -3,8 +3,8 @@
 
     <div class="sm:flex sm:justify-between sm:gap-4">
         <div>
-            <h3 class="text-lg font-bold text-gray-900 sm:text-xl" *ngIf="comment.user">
-               {{comment?.user}}
+            <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+                {{comment.user['name']}}
             </h3>
 
         </div>
@@ -23,20 +23,20 @@
             Reply
         </button>
         <button>likes</button>
-        <button (click)="toggleExpanded()" class="duration-200" [class.rotate-180]="isExpanded">
+        <button (click)="toggleExpanded()" class="duration-200" [class.rotate-180]="isExpanded()">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
             </svg>
         </button>
     </dl>
-    <section class="my-4" *ngIf="isReplying">
-            <!-- <app-comment-form></app-comment-form> -->
+    <section class="my-4" *ngIf="isReplying()">
+        <app-comment-form (formSubmitted)="createComment($event)" placeholder="Write your reply"
+            buttonText="Send"></app-comment-form>
     </section>
-    <section class="nested-comments" *ngIf="isExpanded">
+    <section class="nested-comments" *ngIf="isExpanded()">
         <div class="text-xl">
-            <!-- <app-comment></app-comment>
-            <app-comment></app-comment> -->
+            <app-comment [comment]="comment" *ngFor="let comment of nestedComment(); trackBy:commentTrackBy"></app-comment>
         </div>
     </section>
 

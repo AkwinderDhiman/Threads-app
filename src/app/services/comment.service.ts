@@ -4,18 +4,28 @@ import { Comment } from './interfaces/comment.interface';
 import { Observable } from 'rxjs';
 import { environment } from './environment';
 
-
+type CreateCommentDto = {
+  parentId?: string;
+  text: string;
+  userId: string;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getComments(parentId :string = ''): Observable<Comment[]>{
-    let url =`${environment.apiBaseUrl}/comments`;
-    if(parentId){
+  getComments(parentId: string = ''): Observable<Comment[]> {
+    let url = `${environment.apiBaseUrl}/comments`;
+    if (parentId) {
       url += `?parentId=${parentId}`
-    }    
-   return this.http.get<Comment[]>(url);
+    }
+    return this.http.get<Comment[]>(url);
+  }
+
+  createComment(comment: CreateCommentDto) {
+    return this.http.post<Comment>(`${environment.apiBaseUrl}/comments`,
+      comment
+    )
   }
 }
